@@ -3,12 +3,12 @@
 const MOVIES_ENDPOINT = 'http://localhost:3030/movies';
 
 export async function getAllMovies() {
-    const response = await fetch(`${baseUrl}/movies`);
+    const response = await fetch(MOVIES_ENDPOINT);
     const data = await response.json();
     return data;
 }
 
-export async function create(data) {
+export async function createMovie(data) {
     const options = {
         method: 'POST',
         headers: {},
@@ -20,18 +20,18 @@ export async function create(data) {
         options.headers['X-Authorization'] = token;
     }
 
-    const response = await fetch(`${baseUrl}/movies`, options);
+    const response = await fetch(MOVIES_ENDPOINT, options);
 
     return await response.json();
 }
 
-export async function getSingle(id) {
-    const response = await fetch(`${baseUrl}/movies/${id}`);
+export async function getSingleMovie(id) {
+    const response = await fetch(`${MOVIES_ENDPOINT}/${id}`);
     const data = await response.json();
     return data;
 }
 
-export async function update(id, data) {
+export async function updateMovie(id, data) {
     const options = {
         method: 'PUT',
         headers: {},
@@ -43,12 +43,12 @@ export async function update(id, data) {
         options.headers['X-Authorization'] = token;
     }
 
-    const response = await fetch(`${baseUrl}/movies/${id}`, options);
+    const response = await fetch(`${MOVIES_ENDPOINT}/${id}`, options);
 
     await response.json();
 }
 
-export async function remove(id) {
+export async function deleteMovie(id) {
     const options = {
         method: 'delete',
         headers: {}
@@ -59,13 +59,13 @@ export async function remove(id) {
         options.headers['X-Authorization'] = token;
     }
 
-    const response = await fetch(`${baseUrl}/movies/${id}`, options);
+    const response = await fetch(`${MOVIES_ENDPOINT}/${id}`, options);
 
     await response.json();
 }
 
-export async function getMyPublications(userId) {
-    const response = await fetch(`${baseUrl}?where=_ownerId%3D%22${userId}%22`);
+export async function getMyMoviePublications(userId) {
+    const response = await fetch(`${MOVIES_ENDPOINT}?where=_ownerId%3D%22${userId}%22`);
     const data = await response.json();
     return data;
 }
