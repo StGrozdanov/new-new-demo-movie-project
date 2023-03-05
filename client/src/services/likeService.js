@@ -3,13 +3,13 @@
 const LIKES_ENDPOINT = 'http://localhost:3030/likes';
 
 export async function getMovieLikes(movieId) {
-    const response = await fetch(`${LIKES_ENDPOINT}/likes?where=movieId%3D%22${movieId}%22&distinct=_ownerId&count`);
+    const response = await fetch(`${LIKES_ENDPOINT}?where=movieId%3D%22${movieId}%22&distinct=_ownerId&count`);
     const data = await response.json();
     return data;
 }
 
 export async function getMovieLikesByUser(movieId, userId) {
-    const response = await fetch(`${LIKES_ENDPOINT}/likes?where=movieId%3D%22${movieId}%22%20and%20_ownerId%3D%22${userId}%22 `);
+    const response = await fetch(`${LIKES_ENDPOINT}?where=movieId%3D%22${movieId}%22%20and%20_ownerId%3D%22${userId}%22 `);
     const data = await response.json();
 
     let result = {data: data, liked: false};
@@ -32,7 +32,7 @@ export async function likeMovie(id) {
         options.headers['X-Authorization'] = token;
     }
 
-    const response = await fetch(`${LIKES_ENDPOINT}/likes`, options);
+    const response = await fetch(LIKES_ENDPOINT, options);
 
     return response.json();
 }
@@ -48,7 +48,7 @@ export async function dislikeMovie(id) {
         options.headers['X-Authorization'] = token;
     }
 
-    const response = await fetch(`${LIKES_ENDPOINT}/likes/${id}`, options);
+    const response = await fetch(`${LIKES_ENDPOINT}/${id}`, options);
 
     return response.json();
 }

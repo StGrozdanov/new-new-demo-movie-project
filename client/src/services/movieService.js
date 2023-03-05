@@ -1,6 +1,8 @@
 // movies catalogue endpoint, movie details endpoints etc
 
-export async function getAll() {
+const MOVIES_ENDPOINT = 'http://localhost:3030/movies';
+
+export async function getAllMovies() {
     const response = await fetch(`${baseUrl}/movies`);
     const data = await response.json();
     return data;
