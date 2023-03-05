@@ -1,0 +1,1 @@
+// we connect only to the register , login, logout endpoints of the server
