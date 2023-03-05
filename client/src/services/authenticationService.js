@@ -54,3 +54,7 @@ export async function logout() {
         throw new Error();
     }
 }
+
+export function userIsLoggedIn() {
+    return sessionStorage.getItem('authToken') !== null;
+}

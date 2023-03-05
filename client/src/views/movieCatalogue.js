@@ -1,6 +1,7 @@
 import { html } from '../../node_modules/lit-html/lit-html.js';
-import { getAll } from '../io/requests.js';
+import { getAllMovies } from '../services/movieService.js';
 import { userIsLoggedIn } from './navigationView.js';
+import { movieTemplate } from './templates/movieTemplate.js';
 
 const homePageTemplate = (movies) => html`
 <section id="home-page">
@@ -12,7 +13,6 @@ const homePageTemplate = (movies) => html`
     </div>
 </section>
 <h1 class="text-center">Movies</h1>
-
 <section id="add-movie-button">
     <a href="/add-movie" class="btn btn-warning" style="${userIsLoggedIn() ? '' : 'display:none;'}">Add Movie</a>
 </section>
@@ -27,33 +27,11 @@ const homePageTemplate = (movies) => html`
     </div>
     </div>
 </section>
-
-<footer class="page-footer font-small">
-    <div class="footer-copyright text-center py-3">© 2021
-        <a href="#" class="text-dark">JS
-            Applications Demo Project</a>
-    </div>
-</footer>
-`;
-
-const movieTemplate = (data) => html`
-<div class="card mb-4">
-    <img class="card-img-top" src="${data.img}"
-        alt="Card image cap" width="400">
-    <div class="card-body">
-        <h4 class="card-title">${data.title}</h4>
-    </div>
-    <div class="card-footer">
-        <a href="/details/${data._id}" type="button" class="btn btn-info">Details</a>
-    </div>
-
-</div>
 `;
 
 export async function catalogue(ctx) {
-    const data = await getAll();
-    const movies = data.map(movieTemplate);
-    const homePageTem = homePageTemplate(movies);
-
-    ctx.render(homePageTem);
+    const allMovies = await getAllMovies();
+    const moviesTemplateArray = allMovies.map(movieTemplate);
+    const completedCatalogue = homePageTemplate(moviesTemplateArray);
+    ctx.render(completedCatalogue);
 }

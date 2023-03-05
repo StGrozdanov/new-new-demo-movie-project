@@ -38,7 +38,3 @@ async function logoutHandler(ctx) {
     await logout();
     ctx.page.redirect('/');
 }
-
-export function userIsLoggedIn() {
-    return sessionStorage.getItem('authToken') !== null;
-}
